@@ -4,13 +4,171 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Malla Curricular Interactiva</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0eaff;
+      margin: 20px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      color: #4a148c;
+    }
+
+    .malla-container {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 12px;
+      padding-bottom: 20px;
+      user-select: none;
+    }
+
+    .ramo {
+      flex: 0 0 auto;
+      min-width: 220px;
+      background-color: #cdb4db;
+      border-radius: 8px;
+      padding: 16px;
+      color: #3c1361;
+      box-shadow: 0 4px 8px rgb(92 61 144 / 0.3);
+      cursor: pointer;
+      position: relative;
+      transition: background-color 0.3s, color 0.3s;
+      text-align: center;
+      user-select: none;
+    }
+
+    .ramo.blocked {
+      background-color: #d3d3d3;
+      color: #666;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .ramo.unlocked {
+      background-color: white;
+      color: #3c1361;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgb(92 61 144 / 0.15);
+    }
+
+    .ramo.approved {
+      background-color: #3c1361;
+      color: white;
+      cursor: default;
+      box-shadow: 0 6px 10px rgb(36 18 97 / 0.7);
+    }
+
+    .ramo .checkmark {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 20px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .ramo.approved .checkmark {
+      display: block;
+      color: #d1c4e9;
+    }
+
+    .ramo h4 {
+      margin: 0 0 8px 0;
+      font-size: 16px;
+    }
+
+    .ramo small {
+      font-size: 12px;
+      color: #555;
+      display: block;
+      margin-top: 8px;
+    }
+  </style>
 </head>
 <body>
   <h1>Malla Curricular Interactiva</h1>
-  <p>Haz click en los ramos para aprobarlos y desbloquear otros.</p>
-  <div class="malla-container"></div>
+  <p>Haz click en los ramos para aprobarlos y desbloquear los siguientes.</p>
 
-  <script src="script.js"></script>
+  <div class="malla-container" id="malla"></div>
+
+  <script>
+    const cursos = [
+      { id: "1", nombre: "Fundamentos de los Alimentos y Nutrición", semestre: "1º", requiere: [], abre: ["15"] },
+      { id: "2", nombre: "Alimentos", semestre: "1º", requiere: [], abre: ["13"] },
+      { id: "3", nombre: "Biología Celular", semestre: "1º", requiere: [], abre: ["7", "8"] },
+      { id: "4", nombre: "Química General y Orgánica", semestre: "1º", requiere: [], abre: ["6", "9"] },
+      { id: "5", nombre: "Matemáticas Elemental", semestre: "1º", requiere: [], abre: ["6", "15"] },
+      { id: "6", nombre: "Química de los Alimentos", semestre: "2º", requiere: ["4", "5"], abre: ["12"] },
+      { id: "7", nombre: "Microbiología", semestre: "2º", requiere: ["3"], abre: ["13"] },
+      { id: "8", nombre: "Bioquímica Nutricional", semestre: "2º", requiere: ["4"], abre: ["16"] },
+      { id: "9", nombre: "Morfología", semestre: "2º", requiere: ["3"], abre: ["16"] },
+      { id: "10", nombre: "Inglés I", semestre: "2º", requiere: [], abre: ["11"] },
+      { id: "11", nombre: "Inglés II", semestre: "3º", requiere: ["10"], abre: ["24"] },
+      { id: "12", nombre: "Técnicas Dietéticas", semestre: "3º", requiere: ["6"], abre: ["20"] },
+      { id: "13", nombre: "Higiene y Control de los Alimentos", semestre: "3º", requiere: ["2", "7"], abre: ["20"] },
+      { id: "14", nombre: "Psicología y Educación en Salud", semestre: "3º", requiere: [], abre: ["32"] },
+      { id: "15", nombre: "Salud Pública I", semestre: "3º", requiere: ["1", "5"], abre: ["21"] },
+      { id: "16", nombre: "Fisiopatología General y de Sistemas I", semestre: "3º", requiere: ["8", "9"], abre: ["17", "18"] },
+      { id: "17", nombre: "Fisiopatología II", semestre: "4º", requiere: ["16"], abre: [] },
+      { id: "18", nombre: "Nutrición Humana", semestre: "4º", requiere: ["16"], abre: [] }
+    ];
+
+    const estadoCursos = {};
+
+    function inicializarEstado() {
+      cursos.forEach(curso => {
+        estadoCursos[curso.id] = curso.requiere.length === 0 ? "unlocked" : "blocked";
+      });
+    }
+
+    function actualizarVisual() {
+      cursos.forEach(curso => {
+        const el = document.getElementById(`curso-${curso.id}`);
+        el.className = `ramo ${estadoCursos[curso.id]}`;
+      });
+    }
+
+    function aprobarCurso(id) {
+      if (estadoCursos[id] !== "unlocked") return;
+
+      estadoCursos[id] = "approved";
+
+      cursos.forEach(curso => {
+        if (curso.requiere.includes(id)) {
+          const todos = curso.requiere.every(req => estadoCursos[req] === "approved");
+          if (todos && estadoCursos[curso.id] !== "approved") {
+            estadoCursos[curso.id] = "unlocked";
+          }
+        }
+      });
+
+      actualizarVisual();
+    }
+
+    function crearRamos() {
+      const contenedor = document.getElementById("malla");
+      cursos.forEach(curso => {
+        const div = document.createElement("div");
+        div.className = `ramo ${estadoCursos[curso.id]}`;
+        div.id = `curso-${curso.id}`;
+        div.innerHTML = `
+          <h4>${curso.nombre}</h4>
+          <small>${curso.semestre}</small>
+          <div class="checkmark">✓</div>
+        `;
+        div.onclick = () => aprobarCurso(curso.id);
+        contenedor.appendChild(div);
+      });
+    }
+
+    window.onload = () => {
+      inicializarEstado();
+      crearRamos();
+      actualizarVisual();
+    };
+  </script>
 </body>
 </html>
