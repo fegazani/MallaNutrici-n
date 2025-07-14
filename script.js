@@ -1,5 +1,4 @@
-# Crear script.js completo con prerequisitos y desbloqueos reales
-script_js_full = """// script.js
+// script.js
 
 const cursos = {
   "Fundamentos de los Alimentos y Nutrición": {
@@ -63,7 +62,7 @@ const cursos = {
     abre: ["Educación en Alimentación y Nutrición", "Salud Pública II"]
   },
   "Salud Pública I": {
-    prereq: ["Matemáticas Elemental", "Fundamentos de los Alimentos y Nutrición"],
+    prereq: ["Fundamentos de los Alimentos y Nutrición", "Matemáticas Elemental"],
     abre: ["Salud Pública II"]
   },
   "Bromatología y Tecnología de los Alimentos": {
@@ -76,7 +75,7 @@ const cursos = {
   },
   "Nutrición Humana": {
     prereq: ["Fisiopatología General y de Sistemas I"],
-    abre: ["Evaluación Nutricional en el Ciclo de Vital", "Nutrición y Alimentación en el Ciclo de Vital", "Metodología de la Investigación", "Administración y Gestión en Salud"]
+    abre: ["Evaluación Nutricional en el Ciclo de Vital", "Nutrición y Alimentación en el Ciclo de Vital"]
   },
   "Salud Pública II": {
     prereq: ["Salud Pública I", "Psicología y Educación en Salud"],
@@ -88,7 +87,7 @@ const cursos = {
   },
   "Evaluación Nutricional en el Ciclo de Vital": {
     prereq: ["Fisiopatología General y de Sistemas II", "Nutrición Humana"],
-    abre: ["Dietoterapia del Adulto y Adulto Mayor", "Integrado de Nutrición y Alimentación I", "Proyectos de Intervención Alimentario Nutricional"]
+    abre: ["Dietoterapia del Adulto y Adulto Mayor", "Proyectos de Intervención Alimentario Nutricional", "Integrado de Nutrición y Alimentación I"]
   },
   "Nutrición y Alimentación en el Ciclo de Vital": {
     prereq: ["Fisiopatología General y de Sistemas II", "Nutrición Humana"],
@@ -115,7 +114,7 @@ const cursos = {
     abre: ["Integrado de Nutrición y Alimentación I"]
   },
   "Dietoterapia del Adulto y Adulto Mayor": {
-    prereq: ["Evaluación Nutricional en el Ciclo de Vital", "Nutrición y Alimentación en el Ciclo de Vital"],
+    prereq: ["Evaluación Nutricional en el Ciclo de Vital"],
     abre: ["Dietoterapia Materno e Infantil"]
   },
   "Proyectos de Intervención Alimentario Nutricional": {
@@ -143,8 +142,7 @@ const cursos = {
     abre: ["Integrado de Nutrición y Alimentación II", "Nutrición, Actividad Física y Deporte"]
   },
   "Nutrición, Actividad Física y Deporte": {
-    prereq: ["Dietoterapia Materno e Infantil"],
-    abre: []
+    prereq: ["Dietoterapia Materno e Infantil"]
   },
   "Nutrición Comunitaria I": {
     prereq: ["Proyectos de Intervención Alimentario Nutricional"],
@@ -167,8 +165,7 @@ const cursos = {
     abre: ["Responsabilidad Social"]
   },
   "Bioética": {
-    prereq: ["Nutrición Comunitaria I"],
-    abre: []
+    prereq: ["Nutrición Comunitaria I"]
   },
   "Innovación Alimentaria": {
     prereq: ["Alimentación Institucional II", "Gestión y Calidad II"],
@@ -179,29 +176,24 @@ const cursos = {
     abre: ["Internado 1: Clínico Adulto e Infantil", "Internado 2: Alimentación Institucional e Innovación", "Internado 3: Nutrición Comunitaria"]
   },
   "Responsabilidad Social": {
-    prereq: ["Pensamiento Crítico"],
-    abre: []
+    prereq: ["Pensamiento Crítico"]
   },
   "Inglés IV": {
-    prereq: ["Inglés III"],
-    abre: ["Farmacología en Nutrición"]
+    prereq: ["Inglés III"]
   },
   "Internado 1: Clínico Adulto e Infantil": {
-    prereq: ["Integrado de Nutrición y Alimentación II"],
-    abre: []
+    prereq: ["Integrado de Nutrición y Alimentación II"]
   },
   "Internado 2: Alimentación Institucional e Innovación": {
-    prereq: ["Integrado de Nutrición y Alimentación II"],
-    abre: []
+    prereq: ["Integrado de Nutrición y Alimentación II", "Innovación Alimentaria"]
   },
   "Internado 3: Nutrición Comunitaria": {
-    prereq: ["Integrado de Nutrición y Alimentación II", "Nutrición Comunitaria II"],
-    abre: []
+    prereq: ["Nutrición Comunitaria II", "Integrado de Nutrición y Alimentación II"]
   }
 };
 
 window.onload = () => {
-  document.querySelectorAll(\".course-btn\").forEach(btn => {
+  document.querySelectorAll(".course-btn").forEach(btn => {
     const course = btn.dataset.course;
     if (!cursos[course] || cursos[course].prereq.length === 0) {
       btn.disabled = false;
@@ -211,7 +203,7 @@ window.onload = () => {
 
 function toggleCourse(btn) {
   const course = btn.dataset.course;
-  btn.classList.add(\"passed\");
+  btn.classList.add("passed");
   btn.disabled = true;
 
   const opened = cursos[course]?.abre || [];
@@ -219,7 +211,7 @@ function toggleCourse(btn) {
     const nextBtn = document.querySelector(`button[data-course='${next}']`);
     if (nextBtn) {
       const prereqMet = cursos[next].prereq.every(p =>
-        document.querySelector(`button[data-course='${p}']`)?.classList.contains(\"passed\")
+        document.querySelector(`button[data-course='${p}']`)?.classList.contains("passed")
       );
       if (prereqMet) {
         nextBtn.disabled = false;
@@ -227,9 +219,3 @@ function toggleCourse(btn) {
     }
   });
 }
-"""
-
-# Guardar script.js completo
-script_path = Path("/mnt/data/script_completo.js")
-script_path.write_text(script_js_full, encoding="utf-8")
-script_path
