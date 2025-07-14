@@ -1,4 +1,3 @@
-// Datos de la malla (cursos, requisitos y a qué abren)
 const cursos = {
   "Fundamentos de los Alimentos y Nutrición": {
     prereq: [],
@@ -249,14 +248,3 @@ function crearMalla() {
       <small>Semestre: ${curso.semestre}</small>
       <div class="checkmark">✓</div>
     `;
-    div.addEventListener("click", () => aprobarRamo(curso.id));
-    container.appendChild(div);
-  });
-}
-
-// Al cargar la página
-window.onload = () => {
-  inicializarEstado();
-  crearMalla();
-  actualizarVisual();
-};
