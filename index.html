@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Académica Interactiva</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Malla Académica Interactiva</h1>
+  </header>
+  <main>
+    <div class="semester-grid">
+
+      <!-- PRIMER AÑO -->
+      <div class="semester">
+        <h3>1° Semestre</h3>
+        <ul>
+          <li><button class="course-btn" data-course="Fundamentos de los Alimentos y Nutrición" onclick="toggleCourse(this)">Fundamentos de los Alimentos y Nutrición</button></li>
+          <li><button class="course-btn" data-course="Alimentos" onclick="toggleCourse(this)">Alimentos</button></li>
+          <li><button class="course-btn" data-course="Biología Celular" onclick="toggleCourse(this)">Biología Celular</button></li>
+          <li><button class="course-btn" data-course="Química General y Orgánica" onclick="toggleCourse(this)">Química General y Orgánica</button></li>
+          <li><button class="course-btn" data-course="Matemáticas Elemental" onclick="toggleCourse(this)">Matemáticas Elemental</button></li>
+          <li><button class="course-btn" data-course="Habilidades Comunicativas" onclick="toggleCourse(this)">Habilidades Comunicativas</button></li>
+        </ul>
+      </div>
+      <div class="semester">
+        <h3>2° Semestre</h3>
+        <ul>
+          <li><button class="course-btn" data-course="Química de los Alimentos" onclick="toggleCourse(this)">Química de los Alimentos</button></li>
+          <li><button class="course-btn" data-course="Microbiología" onclick="toggleCourse(this)">Microbiología</button></li>
+          <li><button class="course-btn" data-course="Bioquímica Nutricional" onclick="toggleCourse(this)">Bioquímica Nutricional</button></li>
+          <li><button class="course-btn" data-course="Morfología" onclick="toggleCourse(this)">Morfología</button></li>
+          <li><button class="course-btn" data-course="Inglés I" onclick="toggleCourse(this)">Inglés I</button></li>
+        </ul>
+      </div>
+
+      <!-- SEGUNDO AÑO -->
+      <div class="semester">
+        <h3>3° Semestre</h3>
+        <ul>
+          <li><button class="course-btn" data-course="Técnicas Dietéticas" onclick="toggleCourse(this)">Técnicas Dietéticas</button></li>
+          <li><button class="course-btn" data-course="Fisiopatología General y de Sistemas I" onclick="toggleCourse(this)">Fisiopatología General y de Sistemas I</button></li>
+          <li><button class="course-btn" data-course="Higiene y Control de los Alimentos" onclick="toggleCourse(this)">Higiene y Control de los Alimentos</button></li>
+          <li><button class="course-btn" data-course="Psicología y Educación en Salud" onclick="toggleCourse(this)">Psicología y Educación en Salud</button></li>
+          <li><button class="course-btn" data-course="Salud Pública I" onclick="toggleCourse(this)">Salud Pública I</button></li>
+        </ul>
+      </div>
+      <div class="semester">
+        <h3>4° Semestre</h3>
+        <ul>
+          <li><button class="course-btn" data-course="Bromatología y Tecnología de los Alimentos" onclick="toggleCourse(this)">Bromatología y Tecnología de los Alimentos</button></li>
+          <li><button class="course-btn" data-course="Fisiopatología General y de Sistemas II" onclick="toggleCourse(this)">Fisiopatología General y de Sistemas II</button></li>
+          <li><button class="course-btn" data-course="Nutrición Humana" onclick="toggleCourse(this)">Nutrición Humana</button></li>
+          <li><button class="course-btn" data-course="Salud Pública II" onclick="toggleCourse(this)">Salud Pública II</button></li>
+          <li><button class="course-btn" data-course="Inglés II" onclick="toggleCourse(this)">Inglés II</button></li>
+        </ul>
+      </div>
+
+      <!-- TERCER AÑO -->
+      <div class="semester">
+        <h3>5° Semestre</h3>
+        <ul>
+          <li><button class="course-btn" data-course="Evaluación Nutricional en el Ciclo de Vital" onclick="toggleCourse(this)">Evaluación Nutricional en el Ciclo de Vital</button></li>
+          <li><button class="course-btn" data-course="Nutrición y Alimentación en el Ciclo de Vital" onclick="toggleCourse(this)">Nutrición y Alimentación en el Ciclo de Vital</button></li>
+          <li><button class="course-btn" data-course="Metodología de la Investigación" onclick="toggleCourse(this)">Metodología de la Investigación</button></li>
+          <li><button class="course-btn" data-course="Administración y Gestión en Salud" onclick="toggleCourse(this)">Administración y Gestión en Salud</button></li>
+          <li><button class="course-btn" data-course="Inglés III" onclick="toggleCourse(this)">Inglés III</button></li>
+          <li><button class="course-btn" data-course="Razonamiento científico y Tecnología de información" onclick="toggleCourse(this)">Razonamiento científico y Tecnología de información</button></li>
+        </ul>
+      </div>
+      <div class="semester">
+        <h3>6° Semestre</h3>
+        <ul>
+          <li><button class="course-btn" data-course="Educación en Alimentación y Nutrición" onclick="toggleCourse(this)">Educación en Alimentación y Nutrición</button></li>
+          <li><button class="course-btn" data-course="Dietoterapia del Adulto y Adulto Mayor" onclick="toggleCourse(this)">Dietoterapia del Adulto y Adulto Mayor</button></li>
+          <li><button class="course-btn" data-course="Proyectos de Intervención Alimentario Nutricional" onclick="toggleCourse(this)">Proyectos de Intervención Alimentario Nutricional</button></li>
+          <li><button class="course-btn" data-course="Farmacología en Nutrición" onclick="toggleCourse(this)">Farmacología en Nutrición</button></li>
+          <li><button class="course-btn" data-course="Alimentación Institucional I" onclick="toggleCourse(this)">Alimentación Institucional I</button></li>
+          <li><button class="course-btn" data-course="Gestión y Calidad I" onclick="toggleCourse(this)">Gestión y Calidad I</button></li>
+        </ul>
+      </div>
+      <!-- CUARTO AÑO -->
+      <div class="semester">
+        <h3>7° Semestre</h3>
+        <ul>
+          <li><button class="course-btn" data-course="Integrado de Nutrición y Alimentación I" onclick="toggleCourse(this)">Integrado de Nutrición y Alimentación I</button></li>
+          <li><button class="course-btn" data-course="Dietoterapia Materno e Infantil" onclick="toggleCourse(this)">Dietoterapia Materno e Infantil</button></li>
+          <li><button class="course-btn" data-course="Nutrición, Actividad Física y Deporte" onclick="toggleCourse(this)">Nutrición, Actividad Física y Deporte</button></li>
+          <li><button class="course-btn" data-course="Nutrición Comunitaria I" onclick="toggleCourse(this)">Nutrición Comunitaria I</button></li>
+          <li><button class="course-btn" data-course="Alimentación Institucional II" onclick="toggleCourse(this)">Alimentación Institucional II</button></li>
+          <li><button class="course-btn" data-course="Nutrición Comunitaria II" onclick="toggleCourse(this)">Nutrición Comunitaria II</button></li>
+          <li><button class="course-btn" data-course="Gestión y Calidad II" onclick="toggleCourse(this)">Gestión y Calidad II</button></li>
+          <li><button class="course-btn" data-course="Pensamiento Crítico" onclick="toggleCourse(this)">Pensamiento Crítico</button></li>
+        </ul>
+      </div>
+
+      <div class="semester">
+        <h3>8° Semestre</h3>
+        <ul>
+          <li><button class="course-btn" data-course="Bioética" onclick="toggleCourse(this)">Bioética</button></li>
+          <li><button class="course-btn" data-course="Innovación Alimentaria" onclick="toggleCourse(this)">Innovación Alimentaria</button></li>
+          <li><button class="course-btn" data-course="Integrado de Nutrición y Alimentación II" onclick="toggleCourse(this)">Integrado de Nutrición y Alimentación II</button></li>
+          <li><button class="course-btn" data-course="Responsabilidad Social" onclick="toggleCourse(this)">Responsabilidad Social</button></li>
+          <li><button class="course-btn" data-course="Inglés IV" onclick="toggleCourse(this)">Inglés IV</button></li>
+        </ul>
+      </div>
+
+      <!-- QUINTO AÑO -->
+      <div class="semester">
+        <h3>9° Semestre</h3>
+        <ul>
+          <li><button class="course-btn" data-course="Internado 1: Clínico Adulto e Infantil" onclick="toggleCourse(this)">Internado 1: Clínico Adulto e Infantil</button></li>
+          <li><button class="course-btn" data-course="Internado 2: Alimentación Institucional e Innovación" onclick="toggleCourse(this)">Internado 2: Alimentación Institucional e Innovación</button></li>
+          <li><button class="course-btn" data-course="Internado 3: Nutrición Comunitaria" onclick="toggleCourse(this)">Internado 3: Nutrición Comunitaria</button></li>
+        </ul>
+      </div>
+
+      <div class="semester">
+        <h3>10° Semestre</h3>
+        <ul>
+          <li><button class="course-btn" data-course="Internado 1: Clínico Adulto e Infantil" onclick="toggleCourse(this)">Internado 1: Clínico Adulto e Infantil</button></li>
+          <li><button class="course-btn" data-course="Internado 2: Alimentación Institucional e Innovación" onclick="toggleCourse(this)">Internado 2: Alimentación Institucional e Innovación</button></li>
+          <li><button class="course-btn" data-course="Internado 3: Nutrición Comunitaria" onclick="toggleCourse(this)">Internado 3: Nutrición Comunitaria</button></li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
+
 
