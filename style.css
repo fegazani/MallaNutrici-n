@@ -34,12 +34,7 @@ header {
 .semester h3 {
   color: #4b2c7d;
   text-align: center;
-}
-
-.semester ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  margin-bottom: 1rem;
 }
 
 .course-btn {
@@ -55,6 +50,7 @@ header {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   text-decoration: none;
+  text-align: left;
 }
 
 .course-btn:hover:not(:disabled) {
