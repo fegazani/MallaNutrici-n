@@ -1,5 +1,4 @@
-# Generar archivo HTML con cursos ordenados por semestre en una malla horizontal
-html_inicio = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -156,13 +155,3 @@ html_final = """
   </script>
 </body>
 </html>
-"""
-
-# Guardar en archivo
-full_html = html_inicio + html_cursos + html_final
-
-file_path = "/mnt/data/malla_interactiva.html"
-with open(file_path, "w", encoding="utf-8") as f:
-    f.write(full_html)
-
-file_path
