@@ -1,157 +1,103 @@
-<!DOCTYPE html>
+from pathlib import Path
+
+# Semestre y ramos ordenados según la malla del usuario
+malla = {
+    "Primer Año - Primer Semestre": [
+        "Fundamentos de los Alimentos y Nutrición",
+        "Alimentos",
+        "Biología Celular",
+        "Química General y Orgánica",
+        "Matemáticas Elemental",
+        "Habilidades Comunicativas"
+    ],
+    "Primer Año - Segundo Semestre": [
+        "Química de los Alimentos",
+        "Microbiología",
+        "Bioquímica Nutricional",
+        "Morfología",
+        "Inglés I"
+    ],
+    "Segundo Año - Tercer Semestre": [
+        "Técnicas Dietéticas",
+        "Fisiopatología General y de Sistemas I",
+        "Higiene y Control de los Alimentos",
+        "Psicología y Educación en Salud",
+        "Salud Pública I",
+        "Inglés II"
+    ],
+    "Segundo Año - Cuarto Semestre": [
+        "Bromatología y Tecnología de los Alimentos",
+        "Fisiopatología General y de Sistemas II",
+        "Nutrición Humana",
+        "Salud Pública II",
+        "Inglés III",
+        "Razonamiento científico y Tecnología de información"
+    ],
+    "Tercer Año - Quinto Semestre": [
+        "Evaluación Nutricional en el Ciclo de Vital",
+        "Nutrición y Alimentación en el Ciclo de Vital",
+        "Metodología de la Investigación",
+        "Administración y Gestión en Salud",
+        "Inglés IV"
+    ],
+    "Tercer Año - Sexto Semestre": [
+        "Educación en Alimentación y Nutrición",
+        "Dietoterapia del Adulto y Adulto Mayor",
+        "Proyectos de Intervención Alimentario Nutricional",
+        "Farmacología en Nutrición",
+        "Alimentación Institucional I",
+        "Gestión y Calidad I",
+        "Integrado de Nutrición y Alimentación I"
+    ],
+    "Cuarto Año - Séptimo Semestre": [
+        "Dietoterapia Materno e Infantil",
+        "Nutrición, Actividad Física y Deporte",
+        "Nutrición Comunitaria I",
+        "Alimentación Institucional II",
+        "Nutrición Comunitaria II",
+        "Gestión y Calidad II",
+        "Pensamiento Crítico"
+    ],
+    "Cuarto Año - Octavo Semestre": [
+        "Bioética",
+        "Innovación Alimentaria",
+        "Integrado de Nutrición y Alimentación II",
+        "Responsabilidad Social"
+    ],
+    "Quinto Año - Noveno Semestre": [
+        "Internado 1: Clínico Adulto e Infantil",
+        "Internado 2: Alimentación Institucional e Innovación"
+    ],
+    "Quinto Año - Décimo Semestre": [
+        "Internado 3: Nutrición Comunitaria"
+    ]
+}
+
+# Construcción del HTML de los semestres
+html_semestres = ""
+for semestre, ramos in malla.items():
+    html_semestres += f'    <section class="semester">\n'
+    html_semestres += f'      <h3>{semestre}</h3>\n'
+    for ramo in ramos:
+        html_semestres += f'      <button class="course-btn" data-course="{ramo}" onclick="toggleCourse(this)">{ramo}</button>\n'
+    html_semestres += f'    </section>\n\n'
+
+# Ensamblar el archivo completo
+html_content = f"""<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Malla Curricular Interactiva</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0eaff;
-      margin: 20px;
-      overflow-x: hidden;
-    }
-
-    h1 {
-      color: #4a148c;
-    }
-
-    .malla-container {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      gap: 12px;
-      padding-bottom: 20px;
-      user-select: none;
-    }
-
-    .ramo {
-      flex: 0 0 auto;
-      min-width: 220px;
-      background-color: #cdb4db;
-      border-radius: 8px;
-      padding: 16px;
-      color: #3c1361;
-      box-shadow: 0 4px 8px rgba(92, 61, 144, 0.3);
-      cursor: pointer;
-      position: relative;
-      transition: background-color 0.3s, color 0.3s;
-      text-align: center;
-    }
-
-    .ramo.blocked {
-      background-color: #d3d3d3;
-      color: #666;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    .ramo.unlocked {
-      background-color: white;
-      color: #3c1361;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(92, 61, 144, 0.15);
-    }
-
-    .ramo.approved {
-      background-color: #3c1361;
-      color: white;
-      cursor: default;
-      box-shadow: 0 6px 10px rgba(36, 18, 97, 0.7);
-    }
-
-    .ramo .checkmark {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      font-size: 20px;
-      font-weight: bold;
-      display: none;
-    }
-
-    .ramo.approved .checkmark {
-      display: block;
-      color: #d1c4e9;
-    }
-
-    .ramo h4 {
-      margin: 0 0 8px 0;
-      font-size: 16px;
-    }
-
-    .ramo small {
-      font-size: 12px;
-      color: #555;
-      display: block;
-      margin-top: 8px;
-    }
-  </style>
+  <title>Malla Interactiva Nutrición</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <h1>Malla Curricular Interactiva</h1>
-  <p>Haz click en los ramos para aprobarlos y desbloquear los siguientes.</p>
-  <div class="malla-container" id="malla"></div>
-  <script>
-    const cursos = 
-"""
-
-# Añadir JSON con los cursos ordenados
-html_cursos = json.dumps(ordenados_final, ensure_ascii=False, indent=2)
-
-# Script final
-html_final = """
-    ;
-
-    const estadoCursos = {};
-
-    function inicializarEstado() {
-      cursos.forEach(curso => {
-        estadoCursos[curso.id] = curso.requiere.length === 0 ? "unlocked" : "blocked";
-      });
-    }
-
-    function actualizarVisual() {
-      cursos.forEach(curso => {
-        const el = document.getElementById(`curso-${curso.id}`);
-        if (el) el.className = `ramo ${estadoCursos[curso.id]}`;
-      });
-    }
-
-    function aprobarCurso(id) {
-      if (estadoCursos[id] !== "unlocked") return;
-      estadoCursos[id] = "approved";
-      cursos.forEach(curso => {
-        if (curso.requiere.includes(id)) {
-          const todos = curso.requiere.every(req => estadoCursos[req] === "approved");
-          if (todos && estadoCursos[curso.id] !== "approved") {
-            estadoCursos[curso.id] = "unlocked";
-          }
-        }
-      });
-      actualizarVisual();
-    }
-
-    function crearRamos() {
-      const contenedor = document.getElementById("malla");
-      cursos.forEach(curso => {
-        const div = document.createElement("div");
-        div.className = `ramo ${estadoCursos[curso.id]}`;
-        div.id = `curso-${curso.id}`;
-        div.innerHTML = `
-          <h4>${curso.nombre}</h4>
-          <small>${curso.semestre}</small>
-          <div class="checkmark">✓</div>
-        `;
-        div.onclick = () => aprobarCurso(curso.id);
-        contenedor.appendChild(div);
-      });
-    }
-
-    window.onload = () => {
-      inicializarEstado();
-      crearRamos();
-      actualizarVisual();
-    };
-  </script>
+  <header>
+    <h1>Malla Curricular Nutrición</h1>
+  </header>
+  <main class="semester-grid">
+{html_semestres.strip()}
+  </main>
 </body>
 </html>
