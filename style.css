@@ -14,8 +14,9 @@ header {
 
 .semester-grid {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
   gap: 2rem;
   padding: 2rem;
 }
@@ -25,13 +26,20 @@ header {
   border: 2px solid #d3bfff;
   border-radius: 12px;
   padding: 1rem;
-  width: 300px;
+  min-width: 300px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  flex-shrink: 0;
 }
 
 .semester h3 {
   color: #4b2c7d;
   text-align: center;
+}
+
+.semester ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .course-btn {
@@ -55,7 +63,7 @@ header {
 }
 
 .course-btn:disabled {
-  background-color: #e5dbf7;
+  background-color: #ffffff;
   color: #8a7aa2;
   cursor: not-allowed;
 }
