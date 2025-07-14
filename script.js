@@ -193,19 +193,47 @@ const cursos = {
 };
 
 window.onload = () => {
+  const aprobadoGuardado = JSON.parse(localStorage.getItem("cursosAprobados")) || [];
+
   document.querySelectorAll(".course-btn").forEach(btn => {
     const course = btn.dataset.course;
     if (!cursos[course] || cursos[course].prereq.length === 0) {
       btn.disabled = false;
+      btn.style.backgroundColor = "#ffffff"; // blanco para cursos sin prereq
+    } else {
+      btn.disabled = true;
+      btn.style.backgroundColor = ""; // reset
+    }
+    if (aprobadoGuardado.includes(course)) {
+      btn.classList.add("passed");
+      btn.disabled = true;
+      btn.style.backgroundColor = ""; // dejar estilo passed (morado)
     }
   });
+
+  aprobadoGuardado.forEach(course => desbloquearCursos(course));
+  marcarDisponibles();
 };
 
 function toggleCourse(btn) {
   const course = btn.dataset.course;
+  if (btn.classList.contains("passed")) return;
+
   btn.classList.add("passed");
   btn.disabled = true;
+  btn.style.backgroundColor = ""; // morado passed
 
+  const aprobadoGuardado = JSON.parse(localStorage.getItem("cursosAprobados")) || [];
+  if (!aprobadoGuardado.includes(course)) {
+    aprobadoGuardado.push(course);
+    localStorage.setItem("cursosAprobados", JSON.stringify(aprobadoGuardado));
+  }
+
+  desbloquearCursos(course);
+  marcarDisponibles();
+}
+
+function desbloquearCursos(course) {
   const opened = cursos[course]?.abre || [];
   opened.forEach(next => {
     const nextBtn = document.querySelector(`button[data-course='${next}']`);
@@ -216,6 +244,14 @@ function toggleCourse(btn) {
       if (prereqMet) {
         nextBtn.disabled = false;
       }
+    }
+  });
+}
+
+function marcarDisponibles() {
+  document.querySelectorAll(".course-btn").forEach(btn => {
+    if (!btn.classList.contains("passed") && !btn.disabled) {
+      btn.style.backgroundColor = "#ffffff"; // blanco para disponibles
     }
   });
 }
